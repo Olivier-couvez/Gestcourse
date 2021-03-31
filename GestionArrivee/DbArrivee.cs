@@ -8,16 +8,16 @@ using System.Configuration;
 
 namespace GestionArrivee
 {
-    class DbInscriptions
+    class DbArrivee
     {
         MySqlDataReader reader;
         Dbconnect Connex;
 
-        public DbInscriptions()
+        public DbArrivee()
         {
         }
 
-        public bool AjouterInscription(Inscriptions UnInscription)
+        public bool AjouterArrivee(Arrivee UnArrivee)
         {
             bool opeOK = false;
             try
@@ -33,8 +33,8 @@ namespace GestionArrivee
 
                 if (Connex.OuvrirConnexion())
             {
-                string requete = "INSERT INTO `Inscription` (`NumDossard`, `coureur_IdCoureur`, `transpondeur_IdTranspondeur`, `course_IdCourse`) " +
-                    "VALUES ('"+ UnInscription.NumDossard + "', '"+ UnInscription.IdCoureur + "', '"+ UnInscription.IdTranspondeur + "', '"+ UnInscription.IdCourse + "')";
+                string requete = "INSERT INTO `arrivee` (`Temps`, `Inscription_IdInscription`) " +
+                    "VALUES ('"+ UnArrivee.Temps + "', '"+ UnArrivee.IdInscription + "')";
                 Connex.RequeteNoData(requete);
                 opeOK = true;
             }
@@ -47,7 +47,7 @@ namespace GestionArrivee
             return opeOK;
         }
 
-        public (bool, string) ModifierInscription(Inscriptions UnInscription, int IdInscription)
+        public (bool, string) ModifierArrivee(Arrivee UnArrivee, int IdArrivee)
         {
             bool opeOK = false;
             int ligneMod = 0;
@@ -65,7 +65,7 @@ namespace GestionArrivee
 
                 if (Connex.OuvrirConnexion())
                 {
-                    string requete = "UPDATE inscription SET `NumDossard`= '" + UnInscription.NumDossard + "', `coureur_IdCoureur`= '" + UnInscription.IdCoureur + "', `transpondeur_IdTranspondeur`= '" + UnInscription.IdTranspondeur + "', `course_IdCourse`= '" + UnInscription.IdCourse + "' WHERE IdInscription = " + IdInscription + "";
+                    string requete = "UPDATE arrivee SET `Temps`= '" + UnArrivee.Temps + "', `Inscription_IdInscription`= '" + UnArrivee.IdInscription + "' WHERE IdArrivee = " + IdArrivee;
                     ligneMod = Connex.RequeteNoData(requete);
                     if (ligneMod == 0)
                     {
@@ -87,7 +87,7 @@ namespace GestionArrivee
             return (opeOK, messErreur);
         }
 
-        public (bool, string) SupprimerInscription(Inscriptions UnInscription, int IdInscription)
+        public (bool, string) SupprimerArrivee(Arrivee UnArrivee, int IdArrivee)
         {
             bool opeOK = false;
             int ligneMod = 0;
@@ -106,7 +106,7 @@ namespace GestionArrivee
 
                 if (Connex.OuvrirConnexion())
                 {
-                    string requete = "DELETE FROM inscription WHERE IdInscription = " + IdInscription;
+                    string requete = "DELETE FROM arrivee WHERE IdArrivee = " + IdArrivee ;
                     ligneMod = Connex.RequeteNoData(requete);
                     if (ligneMod == 0)
                     {
@@ -128,7 +128,7 @@ namespace GestionArrivee
         }
 
 
-        public MySqlDataReader LecturetoutInscription()
+        public MySqlDataReader LecturetoutArrivee()
         {
             try
             {
@@ -143,7 +143,7 @@ namespace GestionArrivee
 
                 if (Connex.OuvrirConnexion())
                 {
-                    string requete = "SELECT * FROM inscription";
+                    string requete = "SELECT * FROM arrivee";
                     reader = Connex.RequeteSql(requete);
                     return reader;
                 }
@@ -157,7 +157,7 @@ namespace GestionArrivee
             
         }
 
-        public MySqlDataReader LectureDernierInscription()
+        public MySqlDataReader LectureUnArrivee(int IdInscription)
         {
             try
             {
@@ -172,7 +172,7 @@ namespace GestionArrivee
 
                 if (Connex.OuvrirConnexion())
                 {
-                    string requete = "SELECT MAX(NumDossard) FROM inscription";
+                    string requete = "SELECT * FROM arrivee WHERE Inscription_IdInscription = " + IdInscription;
                     reader = Connex.RequeteSql(requete);
                     return reader;
                 }
@@ -183,41 +183,7 @@ namespace GestionArrivee
             }
             Connex.FermerConnexion();
             return reader;
-        }
 
-        public MySqlDataReader LectureunInscrit(Int32 NumTranspondeur)
-        {
-            try
-            {
-                string bddServeur = ConfigurationManager.AppSettings["serveur"];
-                string sBddPort = ConfigurationManager.AppSettings["port"];
-                int bddPort = Convert.ToInt16(sBddPort);
-                string bddBase = ConfigurationManager.AppSettings["base"];
-                string bddIdent = ConfigurationManager.AppSettings["identificateur"];
-                string bddMdp = ConfigurationManager.AppSettings["mdp"];
-
-                Connex = new Dbconnect(bddServeur, bddPort, bddBase, bddIdent, bddMdp);
-
-                if (Connex.OuvrirConnexion())
-                {
-                    string requete = "SELECT * FROM inscription WHERE transpondeur_IdTranspondeur = " + NumTranspondeur;
-
-                    reader = Connex.RequeteSql(requete);
-                    Connex.FermerConnexion();
-                    return reader;
-                }
-                else
-                {
-                    Connex.FermerConnexion();
-                    return reader;
-                }
-
-            }
-            catch
-            {
-                Connex.FermerConnexion();
-                return reader;
-            }
         }
     }
 }

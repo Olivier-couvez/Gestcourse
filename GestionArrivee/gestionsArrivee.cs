@@ -78,10 +78,10 @@ namespace GestionArrivee
 
             Courses creeCourse = new Courses(dataCourseNom, dataCourseDate, dataCourseDistance, dataCourseHeure);
             DbCourses ModCourse = new DbCourses();
-            (bool result, string MessErreur) = ModCourse.ModifierCourse(creeCourse, Convert.ToInt16(idxCourseEnCours));
+            (bool result, string messErreur) = ModCourse.ModifierCourse(creeCourse, Convert.ToInt16(idxCourseEnCours));
             if (result == false)
             {
-                MessageBox.Show("Une erreur c'est produit lors de la mise a jour de l'heure de départ de la course, veuillez vérifier l'état dse votre base de Données, avec le message : " + MessErreur);
+                MessageBox.Show("Une erreur s'est produite lors de la mise a jour de l'heure de départ de la course, veuillez vérifier l'état dse votre base de Données, avec le message : " + messErreur);
             }
             textBoxHeureDemar.Text = dataCourseHeure.ToLongTimeString();
             courseDemarree = true;
@@ -110,29 +110,11 @@ namespace GestionArrivee
 
         }
 
-        private void LectureDuTranspondeur()
-        {
-            string chaineLu = "";
-            while (Thread.CurrentThread.IsAlive)
-            {
-                Thread.Sleep(500);
-                // lecture badgeage transpondeur
-                lock (this)
-                {
-                    if (chaineLu != "")
-                    {
-                        // Mettre à jour le tuple de l'arrivée du coureur en récupérant son ID dans inscription avec le numéro de transpondeur
-
-                    }
-                }
-            }
-        }
-
         private void buttonQuitter_Click(object sender, EventArgs e)
         {
             if (courseDemarree == true)
             {
-                DialogResult quitterAppli =  MessageBox.Show("La course est démarrée, voulez-vous vraiment quitter l'application ?", "Quitter ?", MessageBoxButtons.YesNo); 
+                DialogResult quitterAppli = MessageBox.Show("La course est démarrée, voulez-vous vraiment quitter l'application ?", "Quitter ?", MessageBoxButtons.YesNo);
                 if (quitterAppli == DialogResult.Yes)
                 {
                     this.Close();
@@ -173,6 +155,16 @@ namespace GestionArrivee
         class ResteEnEveille
         {
             bool sleepSwitch = false;
+            string chaineLu = "ààààè\"(-";
+            string chaineConv = "";
+            string chaineCalcul = "";
+            bool faireMaj = false;
+            bool ecrireEnreg = true;
+            bool modifierEnreg = false;
+            DateTime arriveeCoureur = DateTime.Now;
+            int idInscrit;
+            Int32 numTranspondeur;
+            int idArrivee;
 
             public bool SleepSwitch
             {
@@ -185,16 +177,131 @@ namespace GestionArrivee
             {
                 while (!sleepSwitch)
                 {
-                    string chaineLu = "";
-
-                    // lecture badgeage transpondeur
-
-                    lock (this)
+                    while (Thread.CurrentThread.IsAlive)
                     {
-                        if (chaineLu != "")
-                        {
-                            // Mettre à jour le tuple de l'arrivée du coureur en récupérant son ID dans inscription avec le numéro de transpondeur
+                        Thread.Sleep(500);
 
+                        // lecture badgeage transpondeur
+
+
+                        lock (this)
+                        {
+                            if (chaineLu != "")
+                            {
+                                ecrireEnreg = true;
+                                modifierEnreg = false;
+                                faireMaj = false;
+                                arriveeCoureur = DateTime.Now;
+                                // Mettre à jour le tuple de l'arrivée du coureur en récupérant son ID dans inscription avec le numéro de transpondeur
+                                DateTime heurearrivee = DateTime.Now;
+
+                                // mise en majuscule la chaine lue.
+
+                                for (int i = 0; i < chaineLu.Length; i++)
+                                {
+                                    chaineCalcul = Convert.ToString((char)(Convert.ToInt16(chaineLu[i] + 65)));
+                                    chaineConv = chaineConv + chaineCalcul;
+                                }
+                                chaineConv = chaineLu.ToUpper();
+                                chaineConv = "139319757";
+
+                                // conversion en entier
+
+                                numTranspondeur = Convert.ToInt32(chaineConv);
+
+                                // lecture de l'enregistrement de la table inscription.
+
+                                DbInscriptions lectInscription = new DbInscriptions();
+                                // (bool opeOk, string messErreur, 
+                                MySqlDataReader readerInscrit = lectInscription.LectureunInscrit(numTranspondeur);
+                                //if (opeOk == true)
+                                //{
+                                if (readerInscrit != null)          // on teste si la requete a bien retournée un résultat
+                                {
+                                    // Vérifie si des données sont présente dans reader
+
+                                    if (readerInscrit.HasRows)
+                                    {
+                                        readerInscrit.Read();
+                                        idInscrit = Convert.ToInt16(readerInscrit.GetString(0));
+                                        faireMaj = true;
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Une erreur s'est produite il n'y a pas d'inscrit pour le numero de transpondeur : " + numTranspondeur);
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Une erreur s'est produite il n'y a pas d'inscrit pour le numero de transpondeur : " + numTranspondeur);
+                                }
+                                //}
+                                //else
+                                //{
+                                //    MessageBox.Show("Une erreur s'est produite lors de la lecture d'un inscrit, veuillez vérifier l'état dse votre base de Données, avec le message : " + messErreur);
+                                //}
+
+                                if (faireMaj == true)
+                                {
+                                    // Verification si transpondeur deja existant, ex : passé deux fois devant le portique.
+
+                                    DbArrivee dejaArrivee = new DbArrivee();
+                                    MySqlDataReader readerDejaArrivee = dejaArrivee.LectureUnArrivee(idInscrit);
+
+                                    if (readerDejaArrivee != null)          // on teste si la requete a bien retournéer un résultat
+                                    {
+                                        // Vérifie si des données sont présente dans reader
+
+                                        if (readerDejaArrivee.HasRows)
+                                        {
+                                            DialogResult refaireEnreg = MessageBox.Show("ATTENTION : ce badge est deja enregistré, refaire l'enregistrement ?", "Enregistrer encore !", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                            if (refaireEnreg == DialogResult.No)
+                                            {
+                                                modifierEnreg = false;
+                                            }
+                                            else
+                                            {
+                                                modifierEnreg = true;
+                                                idArrivee = Convert.ToInt16(readerDejaArrivee.GetString(0));
+                                            }
+
+                                        }
+                                    }
+
+                                    if (ecrireEnreg == true)
+                                    {
+                                        if (modifierEnreg == true)
+                                        {
+                                            Arrivee modifArrivee = new Arrivee(arriveeCoureur, idArrivee);
+                                            DbArrivee ModifierArrivee = new DbArrivee();
+                                            (bool result, string messErreur) = ModifierArrivee.ModifierArrivee(modifArrivee, idArrivee);
+                                            if (result == false)
+                                            {
+                                                MessageBox.Show("La création à échouée, veuillez vérifier l'état de votre base de Données" + messErreur);
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("Arrivée du coureur mise à jour !");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Arrivee creeArrivee = new Arrivee(arriveeCoureur, idInscrit);
+                                            DbArrivee AjoutArrivee = new DbArrivee();
+                                            bool result = AjoutArrivee.AjouterArrivee(creeArrivee);
+                                            if (result == false)
+                                            {
+                                                MessageBox.Show("La création à échouée, veuillez vérifier l'état de votre base de Données");
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("Arrivée du coureur effectuée !");
+                                            }
+                                        }
+                                        
+                                    }
+                                }
+                            }
                         }
                     }
                 }
