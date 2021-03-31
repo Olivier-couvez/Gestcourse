@@ -258,10 +258,12 @@ namespace GestionArrivee
                                             if (refaireEnreg == DialogResult.No)
                                             {
                                                 modifierEnreg = false;
+                                                ecrireEnreg = false;
                                             }
                                             else
                                             {
                                                 modifierEnreg = true;
+                                                readerDejaArrivee.Read();
                                                 idArrivee = Convert.ToInt16(readerDejaArrivee.GetString(0));
                                             }
 
@@ -272,7 +274,7 @@ namespace GestionArrivee
                                     {
                                         if (modifierEnreg == true)
                                         {
-                                            Arrivee modifArrivee = new Arrivee(arriveeCoureur, idArrivee);
+                                            Arrivee modifArrivee = new Arrivee(arriveeCoureur, idInscrit);
                                             DbArrivee ModifierArrivee = new DbArrivee();
                                             (bool result, string messErreur) = ModifierArrivee.ModifierArrivee(modifArrivee, idArrivee);
                                             if (result == false)

@@ -33,8 +33,12 @@ namespace GestionArrivee
 
                 if (Connex.OuvrirConnexion())
             {
-                string requete = "INSERT INTO `arrivee` (`Temps`, `Inscription_IdInscription`) " +
-                    "VALUES ('"+ UnArrivee.Temps + "', '"+ UnArrivee.IdInscription + "')";
+
+                    string dateSql = Convert.ToDateTime(UnArrivee.Temps).ToString("s", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+                    dateSql = dateSql.Replace("T", " ");
+
+                    string requete = "INSERT INTO `arrivee` (`Temps`, `Inscription_IdInscription`) " +
+                    "VALUES ('"+ dateSql + "', '"+ UnArrivee.IdInscription + "')";
                 Connex.RequeteNoData(requete);
                 opeOK = true;
             }
@@ -65,7 +69,10 @@ namespace GestionArrivee
 
                 if (Connex.OuvrirConnexion())
                 {
-                    string requete = "UPDATE arrivee SET `Temps`= '" + UnArrivee.Temps + "', `Inscription_IdInscription`= '" + UnArrivee.IdInscription + "' WHERE IdArrivee = " + IdArrivee;
+                    string dateSql = Convert.ToDateTime(UnArrivee.Temps).ToString("s", System.Globalization.DateTimeFormatInfo.InvariantInfo);
+                    dateSql = dateSql.Replace("T", " ");
+
+                    string requete = "UPDATE arrivee SET `Temps`= '" + dateSql + "', `Inscription_IdInscription`= '" + UnArrivee.IdInscription + "' WHERE IdArrivee = " + IdArrivee;
                     ligneMod = Connex.RequeteNoData(requete);
                     if (ligneMod == 0)
                     {

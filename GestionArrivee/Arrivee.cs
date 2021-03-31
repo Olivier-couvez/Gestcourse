@@ -10,28 +10,28 @@ namespace GestionArrivee
     {
         private int id;
         private DateTime temps;
-        private int idArrivee;
+        private int idInscrit;
 
         public Arrivee()
         {
 
         }
         
-        public Arrivee(int _id, DateTime _temps, int _idArrivee)
+        public Arrivee(int _id, DateTime _temps, int _idInscrit)
         {
             Id = _id;
             temps = _temps;
-            idArrivee = _idArrivee;
+            idInscrit = _idInscrit;
         }
 
         public Arrivee(DateTime _temps , int _idArrivee)
         {
             temps = _temps;
-            idArrivee = _idArrivee;
+            idInscrit = _idArrivee;
         }
 
         public int Id { get => id; set => id = value; }
         public DateTime Temps { get => temps; set => temps = value; }
-        public int IdInscription { get => idArrivee; set => idArrivee = value; }
+        public int IdInscription { get => idInscrit; set => idInscrit = value; }
     }
 }

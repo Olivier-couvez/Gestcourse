@@ -203,12 +203,10 @@ namespace GestionArrivee
                     string requete = "SELECT * FROM inscription WHERE transpondeur_IdTranspondeur = " + NumTranspondeur;
 
                     reader = Connex.RequeteSql(requete);
-                    Connex.FermerConnexion();
                     return reader;
                 }
                 else
                 {
-                    Connex.FermerConnexion();
                     return reader;
                 }
 
