@@ -57,7 +57,14 @@ namespace GestionArrivee
                     dataCourseDate = Convert.ToDateTime(readercourseEnCours.GetString(2));
                     dataCourseDistance = readercourseEnCours.GetString(3);
                     dataCourseHeure = Convert.ToDateTime(readercourseEnCours.GetString(4));
+                    courseDemarree = Convert.ToBoolean(readercourseEnCours.GetString(5));
                 }
+            }
+            if (courseDemarree == true)
+            {
+                textBoxMessage.Text = "ATTENTION : La course est déjà démarrée";
+                textBoxHeureDemar.Text = dataCourseHeure.ToLongTimeString();
+
             }
         }
 
