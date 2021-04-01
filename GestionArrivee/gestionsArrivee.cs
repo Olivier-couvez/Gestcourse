@@ -157,7 +157,6 @@ namespace GestionArrivee
             bool sleepSwitch = false;
             string chaineLu = "ààààè\"(-";
             string chaineConv = "";
-            string chaineCalcul = "";
             bool faireMaj = false;
             bool ecrireEnreg = true;
             bool modifierEnreg = false;
@@ -192,17 +191,50 @@ namespace GestionArrivee
                                 modifierEnreg = false;
                                 faireMaj = false;
                                 arriveeCoureur = DateTime.Now;
+                                chaineConv = "";
                                 // Mettre à jour le tuple de l'arrivée du coureur en récupérant son ID dans inscription avec le numéro de transpondeur
+
                                 DateTime heurearrivee = DateTime.Now;
 
                                 // mise en majuscule la chaine lue.
 
                                 for (int i = 0; i < chaineLu.Length; i++)
                                 {
-                                    chaineCalcul = Convert.ToString((char)(Convert.ToInt16(chaineLu[i] + 65)));
-                                    chaineConv = chaineConv + chaineCalcul;
+                                    switch (Convert.ToString(chaineLu[i]))
+                                    {
+                                        case "&":
+                                            chaineConv = chaineConv + "1";
+                                            break;
+                                        case "é":
+                                            chaineConv = chaineConv + "2";
+                                            break;
+                                        case "\"":
+                                            chaineConv = chaineConv + "3";
+                                            break;
+                                        case "'":
+                                            chaineConv = chaineConv + "4";
+                                            break;
+                                        case "(":
+                                            chaineConv = chaineConv + "5";
+                                            break;
+                                        case "-":
+                                            chaineConv = chaineConv + "6";
+                                            break;
+                                        case "è":
+                                            chaineConv = chaineConv + "7";
+                                            break;
+                                        case "_":
+                                            chaineConv = chaineConv + "8";
+                                            break;
+                                        case "ç":
+                                            chaineConv = chaineConv + "9";
+                                            break;
+                                        case "à":
+                                            chaineConv = chaineConv + "0";
+                                            break;
+                                    }
+
                                 }
-                                chaineConv = chaineLu.ToUpper();
                                 chaineConv = "139319757";
 
                                 // conversion en entier
@@ -317,6 +349,21 @@ namespace GestionArrivee
                 }
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void parametreDeLaBaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
