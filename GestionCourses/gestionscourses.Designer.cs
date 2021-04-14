@@ -44,6 +44,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.classementDuneCourseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,9 +52,10 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fichierToolStripMenuItem,
+            this.parametreDeLaBaseToolStripMenuItem,
             this.fichiersToolStripMenuItem,
             this.gestionDuneCoursesToolStripMenuItem,
-            this.parametreDeLaBaseToolStripMenuItem});
+            this.classementDuneCourseToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -92,35 +94,35 @@
             // coureursToolStripMenuItem
             // 
             this.coureursToolStripMenuItem.Name = "coureursToolStripMenuItem";
-            this.coureursToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.coureursToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.coureursToolStripMenuItem.Text = "Coureurs";
             this.coureursToolStripMenuItem.Click += new System.EventHandler(this.coureursToolStripMenuItem_Click);
             // 
             // clubsToolStripMenuItem
             // 
             this.clubsToolStripMenuItem.Name = "clubsToolStripMenuItem";
-            this.clubsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.clubsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.clubsToolStripMenuItem.Text = "Clubs";
             this.clubsToolStripMenuItem.Click += new System.EventHandler(this.clubsToolStripMenuItem_Click);
             // 
             // catégoriesToolStripMenuItem
             // 
             this.catégoriesToolStripMenuItem.Name = "catégoriesToolStripMenuItem";
-            this.catégoriesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.catégoriesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.catégoriesToolStripMenuItem.Text = "Catégories";
             this.catégoriesToolStripMenuItem.Click += new System.EventHandler(this.catégoriesToolStripMenuItem_Click);
             // 
             // coursesToolStripMenuItem
             // 
             this.coursesToolStripMenuItem.Name = "coursesToolStripMenuItem";
-            this.coursesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.coursesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.coursesToolStripMenuItem.Text = "Courses";
             this.coursesToolStripMenuItem.Click += new System.EventHandler(this.coursesToolStripMenuItem_Click);
             // 
             // transpondeursToolStripMenuItem
             // 
             this.transpondeursToolStripMenuItem.Name = "transpondeursToolStripMenuItem";
-            this.transpondeursToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.transpondeursToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.transpondeursToolStripMenuItem.Text = "Transpondeurs";
             this.transpondeursToolStripMenuItem.Click += new System.EventHandler(this.transpondeursToolStripMenuItem_Click);
             // 
@@ -134,7 +136,7 @@
             // arrivéeToolStripMenuItem
             // 
             this.arrivéeToolStripMenuItem.Name = "arrivéeToolStripMenuItem";
-            this.arrivéeToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.arrivéeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.arrivéeToolStripMenuItem.Text = "Arrivée";
             // 
             // gestionDuneCoursesToolStripMenuItem
@@ -184,6 +186,13 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "courses";
             // 
+            // classementDuneCourseToolStripMenuItem
+            // 
+            this.classementDuneCourseToolStripMenuItem.Name = "classementDuneCourseToolStripMenuItem";
+            this.classementDuneCourseToolStripMenuItem.Size = new System.Drawing.Size(151, 20);
+            this.classementDuneCourseToolStripMenuItem.Text = "Classement d\'une course";
+            this.classementDuneCourseToolStripMenuItem.Click += new System.EventHandler(this.classementDuneCourseToolStripMenuItem_Click);
+            // 
             // gestionscourses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,6 +230,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolStripMenuItem parametreDeLaBaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem classementDuneCourseToolStripMenuItem;
     }
 }
 
