@@ -67,6 +67,12 @@
     <Compile Include="DemarrageCourse.Designer.cs">
       <DependentUpon>DemarrageCourse.cs</DependentUpon>
     </Compile>
+    <Compile Include="GestClassCourse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestClassCourse.Designer.cs">
+      <DependentUpon>GestClassCourse.cs</DependentUpon>
+    </Compile>
     <Compile Include="GestInscriptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DemarrageCourse.resx">
       <DependentUpon>DemarrageCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestClassCourse.resx">
+      <DependentUpon>GestClassCourse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GestInscriptions.resx">
       <DependentUpon>GestInscriptions.cs</DependentUpon>

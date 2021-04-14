@@ -87,6 +87,12 @@ namespace GestionCourses
             DialogResult fermeture = fenGestCoureurs.ShowDialog();
         }
 
+        private void classementDuneCourseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GestClassCourse fenClassCourse = new GestClassCourse();
+            DialogResult fermeture = fenClassCourse.ShowDialog();
+        }
+
         private void coureursToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GestCoureurs fenGestCoureurs = new GestCoureurs();
