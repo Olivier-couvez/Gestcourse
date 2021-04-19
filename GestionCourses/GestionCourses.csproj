@@ -60,6 +60,7 @@
     <Compile Include="AjoutClub.Designer.cs">
       <DependentUpon>AjoutClub.cs</DependentUpon>
     </Compile>
+    <Compile Include="DbArrivee.cs" />
     <Compile Include="DbInscriptions.cs" />
     <Compile Include="DemarrageCourse.cs">
       <SubType>Form</SubType>

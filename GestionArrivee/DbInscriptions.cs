@@ -217,5 +217,34 @@ namespace GestionArrivee
                 return reader;
             }
         }
+
+        public MySqlDataReader LectureInscriptioncourse(int id)
+        {
+            try
+            {
+                string bddServeur = ConfigurationManager.AppSettings["serveur"];
+                string sBddPort = ConfigurationManager.AppSettings["port"];
+                int bddPort = Convert.ToInt16(sBddPort);
+                string bddBase = ConfigurationManager.AppSettings["base"];
+                string bddIdent = ConfigurationManager.AppSettings["identificateur"];
+                string bddMdp = ConfigurationManager.AppSettings["mdp"];
+
+                Connex = new Dbconnect(bddServeur, bddPort, bddBase, bddIdent, bddMdp);
+
+                if (Connex.OuvrirConnexion())
+                {
+                    string requete = "SELECT * FROM inscription where course_IdCourse = "+ id;
+                    reader = Connex.RequeteSql(requete);
+                    return reader;
+                }
+            }
+            catch
+            {
+                return reader;
+            }
+            Connex.FermerConnexion();
+            return reader;
+
+        }
     }
 }
