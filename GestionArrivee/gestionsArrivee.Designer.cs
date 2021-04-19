@@ -56,6 +56,7 @@
             this.textBoxHeureDemar = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.buttonArrivees = new System.Windows.Forms.Button();
+            this.buttonArriveeManuelle = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -318,11 +319,23 @@
             this.buttonArrivees.UseVisualStyleBackColor = true;
             this.buttonArrivees.Click += new System.EventHandler(this.buttonArrivees_Click);
             // 
+            // buttonArriveeManuelle
+            // 
+            this.buttonArriveeManuelle.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonArriveeManuelle.Location = new System.Drawing.Point(532, 190);
+            this.buttonArriveeManuelle.Name = "buttonArriveeManuelle";
+            this.buttonArriveeManuelle.Size = new System.Drawing.Size(245, 33);
+            this.buttonArriveeManuelle.TabIndex = 21;
+            this.buttonArriveeManuelle.Text = "Saisie manuelle des arrivees";
+            this.buttonArriveeManuelle.UseVisualStyleBackColor = true;
+            this.buttonArriveeManuelle.Click += new System.EventHandler(this.buttonArriveeManuelle_Click);
+            // 
             // gestionsArrivee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonArriveeManuelle);
             this.Controls.Add(this.buttonArrivees);
             this.Controls.Add(this.textBoxHeureDemar);
             this.Controls.Add(this.label5);
@@ -380,6 +393,7 @@
         private System.Windows.Forms.TextBox textBoxHeureDemar;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonArrivees;
+        private System.Windows.Forms.Button buttonArriveeManuelle;
     }
 }
 

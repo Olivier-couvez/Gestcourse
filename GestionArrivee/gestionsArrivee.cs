@@ -41,7 +41,7 @@ namespace GestionArrivee
 
 
             idxCourseEnCours = Clipboard.GetText();
-            idxCourseEnCours = "3";
+            idxCourseEnCours = "2";
             courseEnCours = new DbCourses();
             MySqlDataReader readercourseEnCours = courseEnCours.LectureUneCourse(Convert.ToInt16(idxCourseEnCours));
 
@@ -110,6 +110,13 @@ namespace GestionArrivee
 
         }
 
+        private void buttonArriveeManuelle_Click(object sender, EventArgs e)
+        {
+            ArriveeManuelle fenArriveeManuelle = new ArriveeManuelle();
+            fenArriveeManuelle.Idourses = idxCourseEnCours;
+            DialogResult fermeture = fenArriveeManuelle.ShowDialog();
+        }
+
         private void buttonQuitter_Click(object sender, EventArgs e)
         {
             if (courseDemarree == true)
@@ -126,8 +133,6 @@ namespace GestionArrivee
             }
 
         }
-
-
 
         private void buttonSuspendre_Click(object sender, EventArgs e)
         {
@@ -429,7 +434,7 @@ namespace GestionArrivee
             DialogResult fermeture = fenGestCoureurs.ShowDialog();
         }
 
-
+       
 
         private void coureursToolStripMenuItem_Click(object sender, EventArgs e)
         {

@@ -77,6 +77,12 @@
       <DependentUpon>AjoutClub.cs</DependentUpon>
     </Compile>
     <Compile Include="Arrivee.cs" />
+    <Compile Include="ArriveeManuelle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ArriveeManuelle.Designer.cs">
+      <DependentUpon>ArriveeManuelle.cs</DependentUpon>
+    </Compile>
     <Compile Include="DbArrivee.cs" />
     <Compile Include="DbInscriptions.cs" />
     <Compile Include="DemarrageCourse.cs">
@@ -178,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AjoutClub.resx">
       <DependentUpon>AjoutClub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ArriveeManuelle.resx">
+      <DependentUpon>ArriveeManuelle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DemarrageCourse.resx">
       <DependentUpon>DemarrageCourse.cs</DependentUpon>

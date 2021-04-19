@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace GestionCourses
     public partial class GestClassCourse : Form
     {
         DbCourses baseCourses;
+        DbArrivee baseArrivee;
+        MySqlDataReader readerAr;
         int idxCourseEC = 0;
         List<string> listeDesNomCourses = new List<string>();
         List<string> listeDesIdxCourses = new List<string>();
@@ -36,29 +39,49 @@ namespace GestionCourses
             {
                 listViewClassement.View = View.Details;
 
-                for (int i=0; i<40;i++)
-            {
-                classement = Convert.ToString(i);
-                ListViewItem it = new ListViewItem(classement);
-                it2 = remplirliste(it, i);
-                listViewClassement.Items.Add(it2);
-            }
+                // Lecture de la table pour les arrivée
+                baseArrivee = new DbArrivee();
+                readerAr = baseArrivee.LectureArrivee(Convert.ToInt16( listeDesIdxCourses[comboBoxCourses.SelectedIndex]));
+
+                if (readerAr != null)          // on teste si la requete a bien retournéer un résultat
+                {
+                    // Vérifie si des données sont présente dans reader
+
+                    if (readerAr.HasRows)
+                    {
+                        int i = 0;
+                        while (readerAr.Read())
+                        {
+                            // Ajout de la ligne à la liste view.
+
+                            classement = Convert.ToString(i+1);
+                            ListViewItem it = new ListViewItem(classement);
+                            it2 = remplirliste(it);
+                            listViewClassement.Items.Add(it2);
+                            i++;
+                        }
+                    }
+                }
             }
             else
             {
                 MessageBox.Show("Vous n'avez pas sélectioné de course !");
             }
         }
-        private ListViewItem remplirliste(ListViewItem listitem, int i)
+        private ListViewItem remplirliste(ListViewItem listitem)
         {
             string dossard, nom, prenom, categorie, clubs, temps;
             ListViewItem it2;
-            dossard = "dossard" + Convert.ToString(i);
-            nom = "Nom" + Convert.ToString(i);
-            prenom = "Prénom" + Convert.ToString(i);
-            categorie = "Catégorie" + Convert.ToString(i);
-            clubs = "Club" + Convert.ToString(i);
-            temps = "Temps 12 H 10 Mn " + Convert.ToString(i) + "sec";
+            DateTime recupTemps;
+            recupTemps = Convert.ToDateTime(readerAr.GetString(5));
+
+
+            dossard = readerAr.GetString(0);
+            nom = readerAr.GetString(1);
+            prenom = readerAr.GetString(2);
+            categorie = readerAr.GetString(3);
+            clubs = readerAr.GetString(4);
+            temps = recupTemps.ToString("T", DateTimeFormatInfo.InvariantInfo);
             it2 = listitem;
             it2.SubItems.Add(dossard);
             it2.SubItems.Add(nom);

@@ -48,3 +48,4 @@ C:\Users\Virus\Documents\Stage TP CDA\BDD\Visual 2019\gestcourses\Gestcourse\Ges
 C:\Users\Virus\Documents\Stage TP CDA\BDD\Visual 2019\gestcourses\Gestcourse\GestionArrivee\obj\Debug\GestionArrivee.csproj.CopyComplete
 C:\Users\Virus\Documents\Stage TP CDA\BDD\Visual 2019\gestcourses\Gestcourse\GestionArrivee\obj\Debug\GestionArrivee.exe
 C:\Users\Virus\Documents\Stage TP CDA\BDD\Visual 2019\gestcourses\Gestcourse\GestionArrivee\obj\Debug\GestionArrivee.pdb
+C:\Users\Virus\Documents\Stage TP CDA\BDD\Visual 2019\gestcourses\Gestcourse\GestionArrivee\obj\Debug\GestionArrivee.ArriveeManuelle.resources
